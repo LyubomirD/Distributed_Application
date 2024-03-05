@@ -1,5 +1,6 @@
 package com.example.distributedapplication_onlinelibrary.models.books;
 
+import com.example.distributedapplication_onlinelibrary.models.authors.Authors;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -31,36 +32,38 @@ public class E_Books {
     )
     private Long id;
 
-    @Column(length = 250, nullable = false)
-    @NotNull
+    @Column(nullable = false, length = 250)
     private String title;
 
-    @Column(length = 100, unique = true, nullable = false)
-    @NotNull
+    @Column(nullable = false, length = 100, unique = true)
     private String genre;
 
+    @Column(nullable = false, precision = 3, scale = 1)
+    private Double rating;
+
     @Column(nullable = false)
-    @NotNull
     private Integer pages;
 
     @Column(nullable = false, precision = 10, scale = 2)
-    @NotNull
     private BigDecimal price;
 
     @Column(nullable = false)
-    @NotNull
     private Boolean audioVariant;
 
     @Column(nullable = false)
-    @NotNull
     private LocalDateTime whenBookAdded;
 
-    public E_Books(String title, String genre, Integer pages, BigDecimal price, Boolean audioVariant, LocalDateTime whenBookAdded) {
+    public E_Books(String title, String genre, Double rating, Integer pages, BigDecimal price, Boolean audioVariant, LocalDateTime whenBookAdded) {
         this.title = title;
         this.genre = genre;
+        this.rating = rating;
         this.pages = pages;
         this.price = price;
         this.audioVariant = audioVariant;
         this.whenBookAdded = whenBookAdded;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private Authors author;
 }

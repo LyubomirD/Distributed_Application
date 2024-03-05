@@ -23,7 +23,7 @@ import java.util.List;
 public class UserModel implements UserDetails {
 
     @SequenceGenerator(
-            name = "app_user_sequence",
+            name = "user_sequence",
             sequenceName = "user_sequence",
             allocationSize = 1
     )
@@ -33,20 +33,32 @@ public class UserModel implements UserDetails {
             generator = "user_sequence"
     )
     private Long id;
-    private String fName;
-    private String lName;
+    @Column(nullable = false, length = 100)
+    private String firstName;
+
+    @Column(nullable = false, length = 100)
+    private String lastName;
+
+    @Column(nullable = false, unique = true, length = 100)
     private String email;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
     private Integer age;
+
+    @Column(nullable = false)
     private Character sex;
-    private Boolean locked = false;
-    private Boolean enabled = false;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
+    private Boolean locked = false;
+    private Boolean enabled = false;
 
-    public UserModel(String fName, String lName, Integer age, Character sex, Boolean locked, Boolean enabled, UserRole userRole) {
-        this.fName = fName;
-        this.lName = lName;
+
+    public UserModel(String firstName, String lastName, Integer age, Character sex, Boolean locked, Boolean enabled, UserRole userRole) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.age = age;
         this.sex = sex;
         this.locked = locked;
@@ -92,9 +104,9 @@ public class UserModel implements UserDetails {
 
     @ManyToMany
     @JoinTable(
-            name = "users_books",
+            name = "users_ebooks",
             joinColumns = @JoinColumn(name = "user_model_id"),
-            inverseJoinColumns = @JoinColumn(name = "e_book_id")
+            inverseJoinColumns = @JoinColumn(name = "ebook_id")
     )
     private List<E_Books> eBooks = new ArrayList<>();
 }
