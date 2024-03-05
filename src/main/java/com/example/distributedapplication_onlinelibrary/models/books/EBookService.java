@@ -12,7 +12,7 @@ import java.util.Optional;
 public class EBookService {
     private final EBookRepository eBookRepository;
 
-    private boolean bookExists(EBooks book) {
+    private boolean bookExists(EBook book) {
         boolean bookExisting = eBookRepository
                 .findByTitleAndAuthor(book.getTitle(), book.getAuthor().toString())
                 .isPresent();
@@ -24,11 +24,11 @@ public class EBookService {
         return false;
     }
 
-    public List<EBooks> viewAllBooks() {
+    public List<EBook> viewAllBooks() {
         return eBookRepository.findAll();
     }
 
-    public void addNewBook(EBooks book) {
+    public void addNewBook(EBook book) {
         if (bookExists(book)) {
             throw new RuntimeException("Book exists");
         }
@@ -36,8 +36,8 @@ public class EBookService {
         eBookRepository.save(book);
     }
 
-    public void updateExistingBook(Long book_id, EBooks updatedBook) {
-        EBooks existingBook = eBookRepository.findById(book_id).orElseThrow(
+    public void updateExistingBook(Long book_id, EBook updatedBook) {
+        EBook existingBook = eBookRepository.findById(book_id).orElseThrow(
                 () -> new EntityNotFoundException("Book not found with ID: " + book_id));
 
         existingBook.setTitle(updatedBook.getTitle());
@@ -54,7 +54,7 @@ public class EBookService {
 
 
     public void deleteBook(Long bookId) {
-        Optional<EBooks> optionalBook = eBookRepository.findById(bookId);
+        Optional<EBook> optionalBook = eBookRepository.findById(bookId);
 
         if (optionalBook.isEmpty()) {
             throw new RuntimeException("Book does NOT exists");

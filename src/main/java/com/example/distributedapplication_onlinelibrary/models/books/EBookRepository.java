@@ -3,12 +3,11 @@ package com.example.distributedapplication_onlinelibrary.models.books;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface EBookRepository extends JpaRepository<EBooks, Long> {
+public interface EBookRepository extends JpaRepository<EBook, Long> {
 
-    Optional<EBooks> findByTitleAndAuthor(String title, String author);
+    Optional<EBook> findByTitleAndAuthor(String title, String author);
 
 }

@@ -1,6 +1,6 @@
 package com.example.distributedapplication_onlinelibrary.models.books;
 
-import com.example.distributedapplication_onlinelibrary.models.authors.Authors;
+import com.example.distributedapplication_onlinelibrary.models.authors.Author;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
-public class EBooks {
+public class EBook {
 
     @SequenceGenerator(
             name = "ebook_sequence",
@@ -50,7 +50,7 @@ public class EBooks {
     @Column(nullable = false)
     private LocalDateTime whenBookAdded;
 
-    public EBooks(String title, String genre, Double rating, Integer pages, BigDecimal price, Boolean audioVariant, LocalDateTime whenBookAdded) {
+    public EBook(String title, String genre, Double rating, Integer pages, BigDecimal price, Boolean audioVariant, LocalDateTime whenBookAdded) {
         this.title = title;
         this.genre = genre;
         this.rating = rating;
@@ -62,5 +62,5 @@ public class EBooks {
 
     @ManyToOne
     @JoinColumn(name = "author_id")
-    private Authors author;
+    private Author author;
 }

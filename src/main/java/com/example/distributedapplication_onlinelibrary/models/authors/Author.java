@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
-public class Authors {
+public class Author {
 
     @SequenceGenerator(
             name = "author_sequence",
@@ -27,10 +27,10 @@ public class Authors {
     )
     private Long id;
     @Column(nullable = false, length = 100)
-    private String authorFirstName;
+    private String firstName;
 
     @Column(nullable = false, length = 100)
-    private String authorLastName;
+    private String lastName;
 
     @Column(nullable = false)
     private LocalDate authorDateOfBirth;
@@ -52,9 +52,9 @@ public class Authors {
         }
     }
 
-    public Authors(String authorFirstName, String authorLastName, LocalDate authorDateOfBirth, Boolean isDeath, LocalDate authorDateOfDeath, Double averageRating) {
-        this.authorFirstName = authorFirstName;
-        this.authorLastName = authorLastName;
+    public Author(String firstName, String lastName, LocalDate authorDateOfBirth, Boolean isDeath, LocalDate authorDateOfDeath, Double averageRating) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.authorDateOfBirth = authorDateOfBirth;
         this.isDeath = isDeath;
         this.authorDateOfDeath = authorDateOfDeath;

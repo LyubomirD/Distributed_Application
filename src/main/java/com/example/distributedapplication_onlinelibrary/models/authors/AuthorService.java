@@ -1,6 +1,5 @@
 package com.example.distributedapplication_onlinelibrary.models.authors;
 
-import com.example.distributedapplication_onlinelibrary.models.books.EBooks;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,9 +13,9 @@ public class AuthorService {
 
     private final AuthorRepository authorRepository;
 
-    private boolean authorExists(Authors author) {
+    private boolean authorExists(Author author) {
         boolean authorExisting = authorRepository
-                .findByAuthorFirstNameAndAuthorLastName(author.getAuthorFirstName(), author.getAuthorLastName())
+                .findByFirstNameAndLastName(author.getFirstName(), author.getLastName())
                 .isPresent();
 
         if (authorExisting) {
@@ -26,11 +25,11 @@ public class AuthorService {
         return false;
     }
 
-    public List<Authors> viewAllAuthors() {
+    public List<Author> viewAllAuthors() {
         return authorRepository.findAll();
     }
 
-    public void addNewAuthor(Authors author) {
+    public void addNewAuthor(Author author) {
         if (authorExists(author)) {
             throw new RuntimeException("Author exists");
         }
@@ -38,12 +37,12 @@ public class AuthorService {
         authorRepository.save(author);
     }
 
-    public void updateExistingAuthorInformation(Long author_id, Authors updatedAuthorInf) {
-        Authors existingAuthor = authorRepository.findById(author_id).orElseThrow(
+    public void updateExistingAuthorInformation(Long author_id, Author updatedAuthorInf) {
+        Author existingAuthor = authorRepository.findById(author_id).orElseThrow(
                 () -> new EntityNotFoundException("Author not found with ID: " + author_id));
 
-        existingAuthor.setAuthorFirstName(updatedAuthorInf.getAuthorFirstName());
-        existingAuthor.setAuthorLastName(updatedAuthorInf.getAuthorLastName());
+        existingAuthor.setFirstName(updatedAuthorInf.getFirstName());
+        existingAuthor.setLastName(updatedAuthorInf.getLastName());
         existingAuthor.setAuthorDateOfBirth(updatedAuthorInf.getAuthorDateOfBirth());
         existingAuthor.setIsDeath(updatedAuthorInf.getIsDeath());
         existingAuthor.setAuthorDateOfDeath(updatedAuthorInf.getAuthorDateOfDeath());
@@ -54,7 +53,7 @@ public class AuthorService {
 
 
     public void deleteAuthor(Long author_id) {
-        Optional<Authors> optionalAuthors = authorRepository.findById(author_id);
+        Optional<Author> optionalAuthors = authorRepository.findById(author_id);
 
         if (optionalAuthors.isEmpty()) {
             throw new RuntimeException("Author does NOT exists");

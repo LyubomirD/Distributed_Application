@@ -1,6 +1,6 @@
 package com.example.distributedapplication_onlinelibrary.models.users;
 
-import com.example.distributedapplication_onlinelibrary.models.books.EBooks;
+import com.example.distributedapplication_onlinelibrary.models.books.EBook;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -55,13 +55,13 @@ public class UserModel implements UserDetails {
     private Boolean locked = false;
     private Boolean enabled = false;
 
-    public UserModel(String firstName, String lastName, Integer age, Character sex, Boolean locked, Boolean enabled, UserRole userRole) {
+    public UserModel(String firstName, String lastName, String email, String password, Integer age, Character sex, UserRole userRole) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
+        this.password = password;
         this.age = age;
         this.sex = sex;
-        this.locked = locked;
-        this.enabled = enabled;
         this.userRole = userRole;
     }
 
@@ -107,5 +107,5 @@ public class UserModel implements UserDetails {
             joinColumns = @JoinColumn(name = "user_model_id"),
             inverseJoinColumns = @JoinColumn(name = "ebook_id")
     )
-    private List<EBooks> eBooks = new ArrayList<>();
+    private List<EBook> eBooks = new ArrayList<>();
 }
