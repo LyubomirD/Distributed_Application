@@ -35,13 +35,13 @@ public class EBook {
     @Column(nullable = false, length = 100, unique = true)
     private String genre;
 
-    @Column(nullable = false, precision = 3, scale = 1)
+    @Column(nullable = false, precision = 3)
     private Double rating;
 
     @Column(nullable = false)
     private Integer pages;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false, precision = 10)
     private BigDecimal price;
 
     @Column(nullable = false)

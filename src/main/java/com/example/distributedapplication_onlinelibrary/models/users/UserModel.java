@@ -45,10 +45,10 @@ public class UserModel implements UserDetails {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 3)
     private Integer age;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 1)
     private Character sex;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;

@@ -14,7 +14,7 @@ public class EBookService {
 
     private boolean bookExists(EBook book) {
         boolean bookExisting = eBookRepository
-                .findByTitleAndAuthor(book.getTitle(), book.getAuthor().toString())
+                .findByTitleAndAuthor(book.getTitle(), book.getAuthor())
                 .isPresent();
 
         if (bookExisting) {

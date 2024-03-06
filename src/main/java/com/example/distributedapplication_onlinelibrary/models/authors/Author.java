@@ -41,7 +41,7 @@ public class Author {
     @Column
     private LocalDate authorDateOfDeath;
 
-    @Column(nullable = false, precision = 3, scale = 2)
+    @Column(nullable = false, precision = 3)
     private Double averageRating;
 
     @PrePersist
