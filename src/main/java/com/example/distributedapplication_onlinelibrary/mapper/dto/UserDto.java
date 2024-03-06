@@ -3,7 +3,7 @@ package com.example.distributedapplication_onlinelibrary.mapper.dto;
 import lombok.Data;
 
 @Data
-public class UserModelDto {
+public class UserDto {
     private final String firstName;
     private final String lastName;
     private final String email;

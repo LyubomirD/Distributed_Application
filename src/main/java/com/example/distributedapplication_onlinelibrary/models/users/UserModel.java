@@ -32,6 +32,7 @@ public class UserModel implements UserDetails {
             strategy = GenerationType.SEQUENCE,
             generator = "user_sequence"
     )
+    @Column(unique = true, updatable = false)
     private Long id;
     @Column(nullable = false, length = 100)
     private String firstName;

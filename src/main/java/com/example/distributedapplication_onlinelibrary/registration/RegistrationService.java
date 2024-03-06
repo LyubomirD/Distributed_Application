@@ -1,6 +1,6 @@
 package com.example.distributedapplication_onlinelibrary.registration;
 
-import com.example.distributedapplication_onlinelibrary.mapper.dto.UserModelDto;
+import com.example.distributedapplication_onlinelibrary.mapper.dto.UserDto;
 import com.example.distributedapplication_onlinelibrary.mapper.mappers.UserModelRequestMapper;
 import com.example.distributedapplication_onlinelibrary.models.tokens.ConfirmationToken;
 import com.example.distributedapplication_onlinelibrary.models.tokens.ConfirmationTokenService;
@@ -27,7 +27,7 @@ public class RegistrationService {
     private static final UserRole ADMIN = UserRole.ADMIN;
     private static final UserRole CLIENT = UserRole.CLIENT;
 
-    private void validateEmailAndPassword(UserModelDto request) {
+    private void validateEmailAndPassword(UserDto request) {
         boolean isValidEmail = emailValidator.test(request.getEmail());
         boolean isValidPassword = passwordValidator.test(request.getPassword());
 
@@ -37,20 +37,20 @@ public class RegistrationService {
     }
 
 
-    public String registerClient(UserModelDto request) {
+    public String registerClient(UserDto request) {
         validateEmailAndPassword(request);
 
-        UserModel userModel = userModelRequestMapper.userModelDtoToUserModel(request);
+        UserModel userModel = userModelRequestMapper.userDtoToUserModel(request);
         userModel.setUserRole(CLIENT);
         String token = userService.signUpUser(userModel);
 
         return token;
     }
 
-    public String registerAdministrator(UserModelDto request) {
+    public String registerAdministrator(UserDto request) {
         validateEmailAndPassword(request);
 
-        UserModel userModel = userModelRequestMapper.userModelDtoToUserModel(request);
+        UserModel userModel = userModelRequestMapper.userDtoToUserModel(request);
         userModel.setUserRole(ADMIN);
         String token = userService.signUpUser(userModel);
 
