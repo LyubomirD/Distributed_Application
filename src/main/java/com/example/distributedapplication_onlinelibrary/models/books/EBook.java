@@ -1,12 +1,12 @@
 package com.example.distributedapplication_onlinelibrary.models.books;
 
 import com.example.distributedapplication_onlinelibrary.models.authors.Author;
-import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 

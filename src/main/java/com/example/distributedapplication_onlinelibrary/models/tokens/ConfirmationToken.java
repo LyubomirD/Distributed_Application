@@ -1,11 +1,11 @@
 package com.example.distributedapplication_onlinelibrary.models.tokens;
 
 import com.example.distributedapplication_onlinelibrary.models.users.UserModel;
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter

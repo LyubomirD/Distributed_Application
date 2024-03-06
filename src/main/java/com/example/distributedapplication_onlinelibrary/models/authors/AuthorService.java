@@ -1,9 +1,10 @@
 package com.example.distributedapplication_onlinelibrary.models.authors;
 
-import jakarta.persistence.EntityNotFoundException;
+import com.example.distributedapplication_onlinelibrary.exceptions.BookNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,16 @@ public class AuthorService {
 
     public List<Author> viewAllAuthors() {
         return authorRepository.findAll();
+    }
+
+    public Long findAuthorId(String firstName, String lastName) {
+        Optional<Author> author = authorRepository.findByFirstNameAndLastName(firstName, lastName);
+
+        if (author.isEmpty()) {
+            throw new BookNotFoundException("Author does not exists");
+        }
+
+        return author.get().getId();
     }
 
     public void addNewAuthor(Author author) {

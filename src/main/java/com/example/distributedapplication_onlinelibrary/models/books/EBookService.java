@@ -1,9 +1,10 @@
 package com.example.distributedapplication_onlinelibrary.models.books;
 
-import jakarta.persistence.EntityNotFoundException;
+import com.example.distributedapplication_onlinelibrary.exceptions.BookNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +15,7 @@ public class EBookService {
 
     private boolean bookExists(EBook book) {
         boolean bookExisting = eBookRepository
-                .findByTitleAndAuthor(book.getTitle(), book.getAuthor())
+                .findByTitleAndGenre(book.getTitle(), book.getGenre())
                 .isPresent();
 
         if (bookExisting) {
@@ -26,6 +27,16 @@ public class EBookService {
 
     public List<EBook> viewAllBooks() {
         return eBookRepository.findAll();
+    }
+
+    public Long findBookId(String title, String genre) {
+        Optional<EBook> book = eBookRepository.findByTitleAndGenre(title, genre);
+
+        if (book.isEmpty()) {
+            throw new BookNotFoundException("Book does not exists");
+        }
+
+        return book.get().getId();
     }
 
     public void addNewBook(EBook book) {
