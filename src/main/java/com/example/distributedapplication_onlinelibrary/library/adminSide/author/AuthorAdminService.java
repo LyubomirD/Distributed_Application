@@ -1,4 +1,4 @@
-package com.example.distributedapplication_onlinelibrary.library.authors.adminSide;
+package com.example.distributedapplication_onlinelibrary.library.adminSide.author;
 
 import com.example.distributedapplication_onlinelibrary.mapper.dto.AuthorDto;
 import com.example.distributedapplication_onlinelibrary.mapper.mappers.AuthorRequestMapper;
@@ -22,41 +22,14 @@ public class AuthorAdminService {
 
     private final AuthorService authorService;
     private final AuthorRequestMapper authorRequestMapper;
-    private static final UserRole ADMIN = UserRole.ADMIN;
 
-    @SneakyThrows
-    private boolean isUserRoleAdminElseThrowInvalidAccessRole() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        boolean isAdmin = authorities.stream()
-                .map(GrantedAuthority::getAuthority)
-                .anyMatch(role -> role.equals("ADMIN"));
 
-        if (!isAdmin || !authentication.isAuthenticated()) {
-            throw new AccessDeniedException("Access is denied");
-        }
-
-        UserModel currentUser = (UserModel) authentication.getPrincipal();
-        if (!currentUser.isEnabled()) {
-            throw new AccessDeniedException("User is not enabled");
-        }
-
-        return true;
-    }
 
     public Long getAuthorId(String firstName, String lastName) {
-        if (!isUserRoleAdminElseThrowInvalidAccessRole()) {
-            return null;
-        }
-        return authorService.findAuthorId(firstName, lastName);
+        return null;
     }
 
     public void includeNewAuthorToLibrary(AuthorDto request) {
-        if (!isUserRoleAdminElseThrowInvalidAccessRole()) {
-            return;
-        }
-        Author author = authorRequestMapper.authorDtoToAuthor(request);
-        authorService.addNewAuthor(author);
     }
 
     public void changeExistingAuthorInform(Long authorId, AuthorDto request) {

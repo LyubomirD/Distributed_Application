@@ -1,4 +1,4 @@
-package com.example.distributedapplication_onlinelibrary.library.authors.adminSide;
+package com.example.distributedapplication_onlinelibrary.library.adminSide.author;
 
 
 import com.example.distributedapplication_onlinelibrary.mapper.dto.AuthorDto;
