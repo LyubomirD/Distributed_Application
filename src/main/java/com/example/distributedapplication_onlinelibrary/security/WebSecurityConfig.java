@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/v1/registration/**").permitAll()
                 .antMatchers("/api/v1/login/**").permitAll()
                 .antMatchers("/api/v1/library-author-admin/**").permitAll()
-                .antMatchers("api/v1/library-ebook-admin/").permitAll()
+                .antMatchers("api/v1/library-ebook-admin/**").permitAll()
                 .anyRequest().authenticated();
     }
 

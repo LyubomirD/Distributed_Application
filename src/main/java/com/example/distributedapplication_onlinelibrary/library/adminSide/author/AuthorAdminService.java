@@ -1,5 +1,6 @@
 package com.example.distributedapplication_onlinelibrary.library.adminSide.author;
 
+import com.example.distributedapplication_onlinelibrary.library.adminSide.CheckIsUserRoleAdminAndExistingWithEnabled;
 import com.example.distributedapplication_onlinelibrary.mapper.dto.AuthorDto;
 import com.example.distributedapplication_onlinelibrary.mapper.mappers.AuthorRequestMapper;
 import com.example.distributedapplication_onlinelibrary.models.authors.Author;
@@ -22,19 +23,35 @@ public class AuthorAdminService {
 
     private final AuthorService authorService;
     private final AuthorRequestMapper authorRequestMapper;
-
+    private final CheckIsUserRoleAdminAndExistingWithEnabled permission;
 
 
     public Long getAuthorId(String firstName, String lastName) {
-        return null;
+        if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
+            return null;
+        }
+
+        return authorService.findAuthorId(firstName, lastName);
     }
 
     public void includeNewAuthorToLibrary(AuthorDto request) {
+        if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
+            return;
+        }
+
+        Author author = authorRequestMapper.authorDtoToAuthor(request);
+        authorService.addNewAuthor(author);
     }
 
     public void changeExistingAuthorInform(Long authorId, AuthorDto request) {
+        if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
+            return;
+        }
     }
 
     public void deleteAuthorFromLibrary(Long authorId) {
+        if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
+            return;
+        }
     }
 }

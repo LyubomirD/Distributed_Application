@@ -1,12 +1,16 @@
 package com.example.distributedapplication_onlinelibrary.mapper.dto;
 
+import com.example.distributedapplication_onlinelibrary.models.authors.Author;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
+@AllArgsConstructor
 public class EBookDto {
     private final String title;
     private final String genre;
@@ -15,4 +19,7 @@ public class EBookDto {
     private final BigDecimal price;
     private final boolean audioVariant;
     private final LocalDateTime whenBookAdded;
+    private final Author author;
+
+
 }

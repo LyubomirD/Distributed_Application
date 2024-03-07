@@ -33,7 +33,7 @@ public class EBook {
     @Column(nullable = false, length = 250)
     private String title;
 
-    @Column(nullable = false, length = 100, unique = true)
+    @Column(nullable = false, length = 100)
     private String genre;
 
     @Column(nullable = false, precision = 3)
