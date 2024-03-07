@@ -73,9 +73,8 @@ public class AuthorService {
         authorRepository.deleteById(author_id);
     }
 
-    public Author findAuthorId(Long authorId) {
-        Optional<Author> author = authorRepository.findById(authorId);
-        return author.get();
+    public Author findAuthorById(Long author_id) {
+        return authorRepository.getReferenceById(author_id);
     }
 }
 

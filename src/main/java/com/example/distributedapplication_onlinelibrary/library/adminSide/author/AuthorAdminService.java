@@ -5,6 +5,7 @@ import com.example.distributedapplication_onlinelibrary.mapper.dto.AuthorDto;
 import com.example.distributedapplication_onlinelibrary.mapper.mappers.AuthorRequestMapper;
 import com.example.distributedapplication_onlinelibrary.models.authors.Author;
 import com.example.distributedapplication_onlinelibrary.models.authors.AuthorService;
+import com.example.distributedapplication_onlinelibrary.models.books.EBook;
 import com.example.distributedapplication_onlinelibrary.models.users.UserModel;
 import com.example.distributedapplication_onlinelibrary.models.users.UserRole;
 import lombok.AllArgsConstructor;
@@ -47,11 +48,16 @@ public class AuthorAdminService {
         if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
             return;
         }
+
+        Author author = authorRequestMapper.authorDtoToAuthor(request);
+        authorService.updateExistingAuthorInformation(authorId, author);
     }
 
     public void deleteAuthorFromLibrary(Long authorId) {
         if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
             return;
         }
+
+        authorService.deleteAuthor(authorId);
     }
 }

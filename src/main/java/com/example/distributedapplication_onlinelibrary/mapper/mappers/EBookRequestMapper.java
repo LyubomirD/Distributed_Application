@@ -14,4 +14,5 @@ public interface EBookRequestMapper {
     List<EBookDto> eBookListToEBookDtoList(List<EBook> eBooks);
 
     EBook eBookDtoToEBook(EBookDto eBookDto);
+
 }

@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -25,8 +26,15 @@ public class EBookAdminServer {
 
     public List<EBookDto> getAllEBooks() {
         List<EBook> eBookList = eBookService.viewAllBooks();
+        List<EBookDto> eBookDtoList = eBookRequestMapper.eBookListToEBookDtoList(eBookList);
 
-        return eBookRequestMapper.eBookListToEBookDtoList(eBookList);
+        for (int i = 0; i < eBookList.size(); i++) {
+            EBook eBook = eBookList.get(i);
+            Long authorId = eBook.getAuthor().getId();
+            eBookDtoList.get(i).setAuthorId(authorId);
+        }
+
+        return eBookDtoList;
     }
 
     public Long getEBookId(String title, String genre) {
@@ -42,10 +50,9 @@ public class EBookAdminServer {
             return;
         }
         EBook ebook = eBookRequestMapper.eBookDtoToEBook(request);
-        ebook.setAuthor(request.getAuthor());
 
-        authorService.addNewAuthor(request.getAuthor());
-
+        Author author = authorService.findAuthorById(request.getAuthorId());
+        ebook.setAuthor(author);
         eBookService.addNewBook(ebook);
     }
 
