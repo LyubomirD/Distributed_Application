@@ -16,7 +16,7 @@ public class AuthorService {
 
     private boolean authorExists(Author author) {
         boolean authorExisting = authorRepository
-                .findByFirstNameAndLastName(author.getFirstName(), author.getLastName())
+                .findByFirstNameIgnoreCaseAndLastNameIgnoreCase(author.getFirstName(), author.getLastName())
                 .isPresent();
 
         if (authorExisting) {
@@ -31,7 +31,7 @@ public class AuthorService {
     }
 
     public Long findAuthorId(String firstName, String lastName) {
-        Optional<Author> author = authorRepository.findByFirstNameAndLastName(firstName, lastName);
+        Optional<Author> author = authorRepository.findByFirstNameIgnoreCaseAndLastNameIgnoreCase(firstName, lastName);
 
         if (author.isEmpty()) {
             throw new BookNotFoundException("Author does not exists");

@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
+@AllArgsConstructor
 public class EBookDto {
     private final String title;
     private final String genre;

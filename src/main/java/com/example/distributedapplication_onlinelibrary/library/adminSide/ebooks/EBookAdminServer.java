@@ -10,6 +10,7 @@ import com.example.distributedapplication_onlinelibrary.models.books.EBookServic
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +38,8 @@ public class EBookAdminServer {
         return eBookDtoList;
     }
 
+
+
     public Long getEBookId(String title, String genre) {
         if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
             return null;
@@ -53,6 +56,7 @@ public class EBookAdminServer {
 
         Author author = authorService.findAuthorById(request.getAuthorId());
         ebook.setAuthor(author);
+
         eBookService.addNewBook(ebook);
     }
 
@@ -62,6 +66,10 @@ public class EBookAdminServer {
         }
 
         EBook ebook = eBookRequestMapper.eBookDtoToEBook(request);
+
+        Author author = authorService.findAuthorById(request.getAuthorId());
+        ebook.setAuthor(author);
+
         eBookService.updateExistingBook(ebookId, ebook);
     }
 

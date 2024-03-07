@@ -36,7 +36,7 @@ public class EBook {
     @Column(nullable = false, length = 100)
     private String genre;
 
-    @Column(nullable = false, precision = 3)
+    @Column(nullable = false, precision = 2, scale = 1)
     private Double rating;
 
     @Column(nullable = false)

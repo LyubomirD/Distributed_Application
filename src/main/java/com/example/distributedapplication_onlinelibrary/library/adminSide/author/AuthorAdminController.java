@@ -2,8 +2,11 @@ package com.example.distributedapplication_onlinelibrary.library.adminSide.autho
 
 
 import com.example.distributedapplication_onlinelibrary.mapper.dto.AuthorDto;
+import com.example.distributedapplication_onlinelibrary.mapper.dto.EBookDto;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/library-author-admin")
@@ -11,6 +14,11 @@ import org.springframework.web.bind.annotation.*;
 public class AuthorAdminController {
 
     private final AuthorAdminService authorAdminService;
+
+    @GetMapping("/view-all-ebooks")
+    public List<AuthorDto> viewAllAuthors() {
+        return authorAdminService.getAllAuthors();
+    }
 
     @GetMapping("/get-authorId/{firstName}/{lastName}")
     public Long getAuthorById(@PathVariable String firstName, @PathVariable String lastName) {
