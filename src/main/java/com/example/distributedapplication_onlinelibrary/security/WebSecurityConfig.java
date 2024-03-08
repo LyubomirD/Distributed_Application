@@ -35,6 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("api/v1/library-client/ebook/**").permitAll()
                 .antMatchers("api/v1/library-client/author/**").permitAll()
                 .antMatchers("/v2/api-docs/**").permitAll()
+                .antMatchers("/swagger-ui/**").permitAll()
                 .anyRequest().authenticated();
     }
 
