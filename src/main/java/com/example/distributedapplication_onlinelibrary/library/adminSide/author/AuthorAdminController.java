@@ -21,17 +21,17 @@ public class AuthorAdminController {
     }
 
     @PostMapping("/add-author")
-    public void includeNewAuthorToLibrary(@RequestBody AuthorDto request) {
-        authorAdminService.includeNewAuthorToLibrary(request);
+    public String includeNewAuthorToLibrary(@RequestBody AuthorDto request) {
+        return authorAdminService.includeNewAuthorToLibrary(request);
     }
 
     @PutMapping("/update-author/{author_id}")
-    public void updateAuthorInformation(@PathVariable Long author_id, @RequestBody AuthorDto request) {
-        authorAdminService.changeExistingAuthorInform(author_id, request);
+    public String updateAuthorInformation(@PathVariable Long author_id, @RequestBody AuthorDto request) {
+        return authorAdminService.changeExistingAuthorInform(author_id, request);
     }
 
     @DeleteMapping("/delete-author/{author_id}")
-    public void deleteAuthorFromLibrary(@PathVariable Long author_id) {
-        authorAdminService.deleteAuthorFromLibrary(author_id);
+    public String deleteAuthorFromLibrary(@PathVariable Long author_id) {
+        return authorAdminService.deleteAuthorFromLibrary(author_id);
     }
 }

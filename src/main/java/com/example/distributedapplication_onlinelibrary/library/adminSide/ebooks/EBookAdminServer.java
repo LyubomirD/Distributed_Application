@@ -32,9 +32,9 @@ public class EBookAdminServer {
         return eBookService.findBookId(title, genre);
     }
 
-    public void includeNewEBookToLibrary(EBookDto request) {
+    public String includeNewEBookToLibrary(EBookDto request) {
         if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
-            return;
+            return null;
         }
         EBook ebook = eBookRequestMapper.eBookDtoToEBook(request);
 
@@ -42,11 +42,13 @@ public class EBookAdminServer {
         ebook.setAuthor(author);
 
         eBookService.addNewBook(ebook);
+
+        return "Successfully added new ebook";
     }
 
-    public void changeExistingEBookInform(Long ebookId, EBookDto request) {
+    public String changeExistingEBookInform(Long ebookId, EBookDto request) {
         if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
-            return;
+            return null;
         }
 
         EBook ebook = eBookRequestMapper.eBookDtoToEBook(request);
@@ -55,13 +57,17 @@ public class EBookAdminServer {
         ebook.setAuthor(author);
 
         eBookService.updateExistingBook(ebookId, ebook);
+
+        return "EBook was updated";
     }
 
-    public void deleteEBookFromLibrary(Long ebookId) {
+    public String deleteEBookFromLibrary(Long ebookId) {
         if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
-            return;
+            return null;
         }
 
         eBookService.deleteBook(ebookId);
+
+        return "EBook deleted";
     }
 }

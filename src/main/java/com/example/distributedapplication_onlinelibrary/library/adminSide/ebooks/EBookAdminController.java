@@ -20,18 +20,18 @@ public class EBookAdminController {
     }
 
     @PostMapping("/add-ebook")
-    public void includeNewAuthorToLibrary(@RequestBody EBookDto request) {
-        eBookAdminServer.includeNewEBookToLibrary(request);
+    public String includeNewAuthorToLibrary(@RequestBody EBookDto request) {
+        return eBookAdminServer.includeNewEBookToLibrary(request);
     }
 
     @PutMapping("/update-ebook/{ebook_id}")
-    public void updateAuthorInformation(@PathVariable Long ebook_id, @RequestBody EBookDto request) {
-        eBookAdminServer.changeExistingEBookInform(ebook_id, request);
+    public String updateAuthorInformation(@PathVariable Long ebook_id, @RequestBody EBookDto request) {
+        return eBookAdminServer.changeExistingEBookInform(ebook_id, request);
     }
 
     @DeleteMapping("/delete-ebook/{ebook_id}")
-    public void deleteAuthorFromLibrary(@PathVariable Long ebook_id) {
-        eBookAdminServer.deleteEBookFromLibrary(ebook_id);
+    public String deleteAuthorFromLibrary(@PathVariable Long ebook_id) {
+        return eBookAdminServer.deleteEBookFromLibrary(ebook_id);
     }
 
 }

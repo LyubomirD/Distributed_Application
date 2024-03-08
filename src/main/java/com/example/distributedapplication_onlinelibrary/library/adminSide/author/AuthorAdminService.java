@@ -35,29 +35,35 @@ public class AuthorAdminService {
         return authorService.findAuthorId(firstName, lastName);
     }
 
-    public void includeNewAuthorToLibrary(AuthorDto request) {
+    public String includeNewAuthorToLibrary(AuthorDto request) {
         if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
-            return;
+            return null;
         }
 
         Author author = authorRequestMapper.authorDtoToAuthor(request);
         authorService.addNewAuthor(author);
+
+        return "Successfully added new author";
     }
 
-    public void changeExistingAuthorInform(Long authorId, AuthorDto request) {
+    public String changeExistingAuthorInform(Long authorId, AuthorDto request) {
         if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
-            return;
+            return null;
         }
 
         Author author = authorRequestMapper.authorDtoToAuthor(request);
         authorService.updateExistingAuthorInformation(authorId, author);
+
+        return "Author was updated";
     }
 
-    public void deleteAuthorFromLibrary(Long authorId) {
+    public String deleteAuthorFromLibrary(Long authorId) {
         if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
-            return;
+            return null;
         }
 
         authorService.deleteAuthor(authorId);
+
+        return "Author deleted";
     }
 }
