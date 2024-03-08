@@ -22,7 +22,7 @@ public class CheckIsUserRoleAdminAndExistingWithEnabled {
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         boolean isAdmin = authorities.stream()
                 .map(GrantedAuthority::getAuthority)
-                .anyMatch(role -> role.equals("ADMIN"));
+                .anyMatch(role -> role.equals(ADMIN.toString()));
 
         if (!isAdmin || !authentication.isAuthenticated()) {
             throw new AccessDeniedException("Access is denied");

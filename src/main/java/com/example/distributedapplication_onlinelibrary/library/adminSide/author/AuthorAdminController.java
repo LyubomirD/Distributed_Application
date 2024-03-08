@@ -9,16 +9,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/library-author-admin")
+@RequestMapping(path = "api/v1/library-admin/author")
 @AllArgsConstructor
 public class AuthorAdminController {
 
     private final AuthorAdminService authorAdminService;
-
-    @GetMapping("/view-all-ebooks")
-    public List<AuthorDto> viewAllAuthors() {
-        return authorAdminService.getAllAuthors();
-    }
 
     @GetMapping("/get-authorId/{firstName}/{lastName}")
     public Long getAuthorById(@PathVariable String firstName, @PathVariable String lastName) {

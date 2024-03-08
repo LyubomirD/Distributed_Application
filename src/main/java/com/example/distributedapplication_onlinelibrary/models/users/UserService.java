@@ -67,7 +67,6 @@ public class UserService implements UserDetailsService {
     }
 
     public Optional<UserModel> findUserByEmail(String email) {
-        System.out.println("Email:" + userRepository.findByEmail(email));
         return userRepository.findByEmail(email);
     }
 
@@ -75,8 +74,5 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
-    public boolean findUserByEmailAndRole(String email, UserRole role) {
-        return userRepository.existsByEmailAndUserRole(email, role);
-    }
 
 }

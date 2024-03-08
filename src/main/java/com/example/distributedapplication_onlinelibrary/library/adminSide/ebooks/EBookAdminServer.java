@@ -24,22 +24,6 @@ public class EBookAdminServer {
     private final EBookRequestMapper eBookRequestMapper;
     private final CheckIsUserRoleAdminAndExistingWithEnabled permission;
 
-
-    public List<EBookDto> getAllEBooks() {
-        List<EBook> eBookList = eBookService.viewAllBooks();
-        List<EBookDto> eBookDtoList = eBookRequestMapper.eBookListToEBookDtoList(eBookList);
-
-        for (int i = 0; i < eBookList.size(); i++) {
-            EBook eBook = eBookList.get(i);
-            Long authorId = eBook.getAuthor().getId();
-            eBookDtoList.get(i).setAuthorId(authorId);
-        }
-
-        return eBookDtoList;
-    }
-
-
-
     public Long getEBookId(String title, String genre) {
         if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
             return null;

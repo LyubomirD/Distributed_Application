@@ -1,6 +1,7 @@
 package com.example.distributedapplication_onlinelibrary.models.books;
 
 import com.example.distributedapplication_onlinelibrary.exceptions.BookNotFoundException;
+import com.example.distributedapplication_onlinelibrary.models.users.UserModel;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -72,5 +73,9 @@ public class EBookService {
         }
 
         eBookRepository.deleteById(bookId);
+    }
+
+    public Optional<EBook> findEBookByTitleAndGenre(String title, String genre) {
+        return eBookRepository.findByTitleAndGenre(title, genre);
     }
 }

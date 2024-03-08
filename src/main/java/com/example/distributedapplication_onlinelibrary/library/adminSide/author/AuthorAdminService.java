@@ -27,12 +27,6 @@ public class AuthorAdminService {
     private final AuthorRequestMapper authorRequestMapper;
     private final CheckIsUserRoleAdminAndExistingWithEnabled permission;
 
-
-    public List<AuthorDto> getAllAuthors() {
-        List<Author> authorList = authorService.viewAllAuthors();
-        return authorRequestMapper.authorListToAuthorDtoList(authorList);
-    }
-
     public Long getAuthorId(String firstName, String lastName) {
         if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
             return null;
