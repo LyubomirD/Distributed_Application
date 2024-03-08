@@ -1,5 +1,6 @@
 package com.example.distributedapplication_onlinelibrary.registration;
 
+import com.example.distributedapplication_onlinelibrary.exceptions.EmailTakenException;
 import com.example.distributedapplication_onlinelibrary.mapper.dto.UserDto;
 import com.example.distributedapplication_onlinelibrary.mapper.mappers.UserModelRequestMapper;
 import com.example.distributedapplication_onlinelibrary.models.tokens.ConfirmationToken;
@@ -38,20 +39,18 @@ public class RegistrationService {
 
 
     public String registerClient(UserDto request) {
-        validateEmailAndPassword(request);
-
-        UserModel userModel = userModelRequestMapper.userDtoToUserModel(request);
-        userModel.setUserRole(CLIENT);
-        String token = userService.signUpUser(userModel);
-
-        return token;
+        return registerUser(request, UserRole.CLIENT);
     }
 
     public String registerAdministrator(UserDto request) {
+        return registerUser(request, UserRole.ADMIN);
+    }
+
+    private String registerUser(UserDto request, UserRole userRole) {
         validateEmailAndPassword(request);
 
         UserModel userModel = userModelRequestMapper.userDtoToUserModel(request);
-        userModel.setUserRole(ADMIN);
+        userModel.setUserRole(userRole);
         String token = userService.signUpUser(userModel);
 
         return token;
@@ -65,13 +64,13 @@ public class RegistrationService {
                         new IllegalStateException("token not found"));
 
         if (confirmationToken.getConfirmedAt() != null) {
-            throw new IllegalStateException("email already confirmed");
+            throw new EmailTakenException("email already confirmed");
         }
 
         LocalDateTime expiredAt = confirmationToken.getExpiresAt();
 
         if (expiredAt.isBefore(LocalDateTime.now())) {
-            throw new IllegalStateException("token expired");
+            throw new EmailTakenException("token expired");
         }
 
         confirmationTokenService.setConfirmedAt(token);

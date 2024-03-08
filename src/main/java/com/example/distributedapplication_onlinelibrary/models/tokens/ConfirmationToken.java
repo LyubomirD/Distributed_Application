@@ -24,6 +24,7 @@ public class ConfirmationToken {
             strategy = GenerationType.SEQUENCE,
             generator = "confirmation_token_sequence"
     )
+    @Column(unique = true, updatable = false)
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -35,6 +36,7 @@ public class ConfirmationToken {
     @Column(nullable = false)
     private LocalDateTime expiresAt;
 
+    @Column(nullable = true)
     private LocalDateTime confirmedAt;
 
     public ConfirmationToken(String token,

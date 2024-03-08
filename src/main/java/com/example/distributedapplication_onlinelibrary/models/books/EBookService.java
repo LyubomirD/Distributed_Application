@@ -1,7 +1,6 @@
 package com.example.distributedapplication_onlinelibrary.models.books;
 
-import com.example.distributedapplication_onlinelibrary.exceptions.BookNotFoundException;
-import com.example.distributedapplication_onlinelibrary.models.users.UserModel;
+import com.example.distributedapplication_onlinelibrary.exceptions.EBookNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +33,7 @@ public class EBookService {
         Optional<EBook> book = eBookRepository.findByTitleAndGenre(title, genre);
 
         if (book.isEmpty()) {
-            throw new BookNotFoundException("Book does not exists");
+            throw new EBookNotFoundException("Book does not exists");
         }
 
         return book.get().getId();

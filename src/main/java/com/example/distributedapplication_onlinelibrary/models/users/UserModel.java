@@ -34,6 +34,7 @@ public class UserModel implements UserDetails {
     )
     @Column(unique = true, updatable = false)
     private Long id;
+
     @Column(nullable = false, length = 100)
     private String firstName;
 
@@ -43,7 +44,7 @@ public class UserModel implements UserDetails {
     @Column(nullable = false, unique = true, length = 100)
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String password;
 
     @Column(nullable = false, length = 3)
@@ -53,7 +54,11 @@ public class UserModel implements UserDetails {
     private Character sex;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
+
+    @Column(nullable = false)
     private Boolean locked = false;
+
+    @Column(nullable = false)
     private Boolean enabled = false;
 
     public UserModel(String firstName, String lastName, String email, String password, Integer age, Character sex, UserRole userRole) {

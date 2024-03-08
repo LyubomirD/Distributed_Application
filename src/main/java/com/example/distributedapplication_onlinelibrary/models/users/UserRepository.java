@@ -14,8 +14,6 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
 
     Optional<UserModel> findByEmail(String email);
 
-    boolean existsByEmailAndUserRole(String email, UserRole role);
-
     @Transactional
     @Modifying
     @Query("UPDATE UserModel a " +
