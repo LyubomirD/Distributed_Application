@@ -1,6 +1,6 @@
 package com.example.distributedapplication_onlinelibrary.library.clientSide.ebooks;
 
-import com.example.distributedapplication_onlinelibrary.exceptions.EmailValidationException;
+import com.example.distributedapplication_onlinelibrary.exceptions.email_exceptions.EmailValidationException;
 import com.example.distributedapplication_onlinelibrary.mapper.dto.EBookDto;
 import com.example.distributedapplication_onlinelibrary.mapper.dto.UserDto;
 import com.example.distributedapplication_onlinelibrary.mapper.mappers.EBookRequestMapper;

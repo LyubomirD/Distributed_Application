@@ -1,4 +1,4 @@
-package com.example.distributedapplication_onlinelibrary.exceptions;
+package com.example.distributedapplication_onlinelibrary.exceptions.ebook_exception;
 
 public class EBookNotFoundException extends IllegalArgumentException {
 

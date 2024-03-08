@@ -1,6 +1,6 @@
 package com.example.distributedapplication_onlinelibrary.models.books;
 
-import com.example.distributedapplication_onlinelibrary.exceptions.EBookNotFoundException;
+import com.example.distributedapplication_onlinelibrary.exceptions.ebook_exception.EBookNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

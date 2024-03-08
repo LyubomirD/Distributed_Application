@@ -1,6 +1,6 @@
 package com.example.distributedapplication_onlinelibrary.models.users;
 
-import com.example.distributedapplication_onlinelibrary.exceptions.EmailTakenException;
+import com.example.distributedapplication_onlinelibrary.exceptions.email_exceptions.EmailTakenException;
 import com.example.distributedapplication_onlinelibrary.models.tokens.ConfirmationToken;
 import com.example.distributedapplication_onlinelibrary.models.tokens.ConfirmationTokenService;
 import lombok.AllArgsConstructor;

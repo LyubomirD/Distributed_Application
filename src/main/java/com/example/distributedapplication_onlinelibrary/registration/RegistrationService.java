@@ -1,6 +1,6 @@
 package com.example.distributedapplication_onlinelibrary.registration;
 
-import com.example.distributedapplication_onlinelibrary.exceptions.EmailTakenException;
+import com.example.distributedapplication_onlinelibrary.exceptions.email_exceptions.EmailTakenException;
 import com.example.distributedapplication_onlinelibrary.mapper.dto.UserDto;
 import com.example.distributedapplication_onlinelibrary.mapper.mappers.UserModelRequestMapper;
 import com.example.distributedapplication_onlinelibrary.models.tokens.ConfirmationToken;

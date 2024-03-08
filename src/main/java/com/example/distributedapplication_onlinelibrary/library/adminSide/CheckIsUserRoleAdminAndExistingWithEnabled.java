@@ -1,5 +1,7 @@
 package com.example.distributedapplication_onlinelibrary.library.adminSide;
 
+import com.example.distributedapplication_onlinelibrary.exceptions.user_role_access_exception.AdminAccessDeniedException;
+import com.example.distributedapplication_onlinelibrary.exceptions.token_exceptions.EmailTokenNotEnablesException;
 import com.example.distributedapplication_onlinelibrary.models.users.UserModel;
 import com.example.distributedapplication_onlinelibrary.models.users.UserRole;
 import lombok.SneakyThrows;
@@ -8,7 +10,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.AccessDeniedException;
 import java.util.Collection;
 
 @Service
@@ -24,13 +25,13 @@ public class CheckIsUserRoleAdminAndExistingWithEnabled {
                 .map(GrantedAuthority::getAuthority)
                 .anyMatch(role -> role.equals(ADMIN.toString()));
 
-        if (!isAdmin || !authentication.isAuthenticated()) {
-            throw new AccessDeniedException("Access is denied");
-        }
-
         UserModel currentUser = (UserModel) authentication.getPrincipal();
         if (!currentUser.isEnabled()) {
-            throw new AccessDeniedException("User is not enabled");
+            throw new EmailTokenNotEnablesException("User token is not conformed");
+        }
+
+        if (!isAdmin || !authentication.isAuthenticated()) {
+            throw new AdminAccessDeniedException("Access is denied");
         }
 
         return true;

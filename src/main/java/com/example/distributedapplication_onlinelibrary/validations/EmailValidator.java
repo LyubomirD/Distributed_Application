@@ -1,6 +1,6 @@
 package com.example.distributedapplication_onlinelibrary.validations;
 
-import com.example.distributedapplication_onlinelibrary.exceptions.EmailValidationException;
+import com.example.distributedapplication_onlinelibrary.exceptions.email_exceptions.EmailValidationException;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Predicate;
