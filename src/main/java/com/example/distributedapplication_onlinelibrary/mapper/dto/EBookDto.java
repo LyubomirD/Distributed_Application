@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
+@Setter
 @AllArgsConstructor
 public class EBookDto {
     private final String title;
@@ -19,10 +20,6 @@ public class EBookDto {
     private final BigDecimal price;
     private final boolean audioVariant;
     private final LocalDateTime whenBookAdded;
-    private Long authorId;
-
-    public void setAuthorId(Long authorId) {
-        this.authorId = authorId;
-    }
-
+    private String authorFirstName;
+    private String authorLastName;
 }

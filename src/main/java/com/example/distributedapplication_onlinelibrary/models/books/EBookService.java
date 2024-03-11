@@ -16,7 +16,7 @@ public class EBookService {
 
     private boolean bookExists(EBook book) {
         boolean bookExisting = eBookRepository
-                .findByTitleIgnoreCaseAndGenreAndGenreIgnoreCase(book.getTitle(), book.getGenre())
+                .findByTitleIgnoreCaseAndGenreIgnoreCase(book.getTitle(), book.getGenre())
                 .isPresent();
 
         if (bookExisting) {
@@ -31,7 +31,7 @@ public class EBookService {
     }
 
     public Long findBookId(String title, String genre) {
-        Optional<EBook> book = eBookRepository.findByTitleIgnoreCaseAndGenreAndGenreIgnoreCase(title, genre);
+        Optional<EBook> book = eBookRepository.findByTitleIgnoreCaseAndGenreIgnoreCase(title, genre);
 
         if (book.isEmpty()) {
             throw new EBookNotFoundException("Book does not exists");
@@ -76,6 +76,6 @@ public class EBookService {
     }
 
     public Optional<EBook> findEBookByTitleAndGenre(String title, String genre) {
-        return eBookRepository.findByTitleIgnoreCaseAndGenreAndGenreIgnoreCase(title, genre);
+        return eBookRepository.findByTitleIgnoreCaseAndGenreIgnoreCase(title, genre);
     }
 }

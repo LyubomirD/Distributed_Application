@@ -38,7 +38,9 @@ public class EBookAdminServer {
         }
         EBook ebook = eBookRequestMapper.eBookDtoToEBook(request);
 
-        Author author = authorService.findAuthorById(request.getAuthorId());
+        Long author_id = authorService.findAuthorId(request.getAuthorFirstName(), request.getAuthorLastName());
+        Author author = authorService.findAuthorById(author_id);
+
         ebook.setAuthor(author);
 
         eBookService.addNewBook(ebook);
@@ -53,7 +55,9 @@ public class EBookAdminServer {
 
         EBook ebook = eBookRequestMapper.eBookDtoToEBook(request);
 
-        Author author = authorService.findAuthorById(request.getAuthorId());
+        Long author_id = authorService.findAuthorId(request.getAuthorFirstName(), request.getAuthorLastName());
+        Author author = authorService.findAuthorById(author_id);
+
         ebook.setAuthor(author);
 
         eBookService.updateExistingBook(ebookId, ebook);
