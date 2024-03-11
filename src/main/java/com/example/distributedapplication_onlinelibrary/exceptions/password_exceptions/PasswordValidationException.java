@@ -1,4 +1,4 @@
-package com.example.distributedapplication_onlinelibrary.exceptions.password_exception;
+package com.example.distributedapplication_onlinelibrary.exceptions.password_exceptions;
 
 import com.example.distributedapplication_onlinelibrary.exceptions.ValidationException;
 

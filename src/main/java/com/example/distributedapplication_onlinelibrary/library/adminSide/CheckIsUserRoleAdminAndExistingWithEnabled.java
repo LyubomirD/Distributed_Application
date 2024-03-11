@@ -1,6 +1,6 @@
 package com.example.distributedapplication_onlinelibrary.library.adminSide;
 
-import com.example.distributedapplication_onlinelibrary.exceptions.user_role_access_exception.AdminAccessDeniedException;
+import com.example.distributedapplication_onlinelibrary.exceptions.user_role_access_exceptions.AdminAccessDeniedException;
 import com.example.distributedapplication_onlinelibrary.exceptions.token_exceptions.EmailTokenNotEnablesException;
 import com.example.distributedapplication_onlinelibrary.models.users.UserModel;
 import com.example.distributedapplication_onlinelibrary.models.users.UserRole;

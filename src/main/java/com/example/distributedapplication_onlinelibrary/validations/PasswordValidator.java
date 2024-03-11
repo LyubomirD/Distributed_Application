@@ -1,6 +1,6 @@
 package com.example.distributedapplication_onlinelibrary.validations;
 
-import com.example.distributedapplication_onlinelibrary.exceptions.password_exception.PasswordValidationException;
+import com.example.distributedapplication_onlinelibrary.exceptions.password_exceptions.PasswordValidationException;
 import org.springframework.stereotype.Service;
 
 import java.util.function.Predicate;

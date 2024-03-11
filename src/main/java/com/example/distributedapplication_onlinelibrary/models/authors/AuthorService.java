@@ -1,6 +1,8 @@
 package com.example.distributedapplication_onlinelibrary.models.authors;
 
-import com.example.distributedapplication_onlinelibrary.exceptions.ebook_exception.EBookNotFoundException;
+import com.example.distributedapplication_onlinelibrary.exceptions.author_exceptions.AuthorExistsAlreadyException;
+import com.example.distributedapplication_onlinelibrary.exceptions.author_exceptions.AuthorNotFoundException;
+import com.example.distributedapplication_onlinelibrary.exceptions.ebook_exceptions.EBookNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +36,7 @@ public class AuthorService {
         Optional<Author> author = authorRepository.findByFirstNameIgnoreCaseAndLastNameIgnoreCase(firstName, lastName);
 
         if (author.isEmpty()) {
-            throw new EBookNotFoundException("Author does not exists");
+            throw new AuthorNotFoundException("Author does not exists");
         }
 
         return author.get().getId();
@@ -42,7 +44,7 @@ public class AuthorService {
 
     public void addNewAuthor(Author author) {
         if (authorExists(author)) {
-            throw new RuntimeException("Author exists");
+            throw new AuthorExistsAlreadyException("Author exists");
         }
 
         authorRepository.save(author);

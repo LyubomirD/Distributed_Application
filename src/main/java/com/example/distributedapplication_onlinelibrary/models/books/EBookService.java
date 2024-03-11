@@ -1,6 +1,7 @@
 package com.example.distributedapplication_onlinelibrary.models.books;
 
-import com.example.distributedapplication_onlinelibrary.exceptions.ebook_exception.EBookNotFoundException;
+import com.example.distributedapplication_onlinelibrary.exceptions.ebook_exceptions.EBookExistsAlreadyException;
+import com.example.distributedapplication_onlinelibrary.exceptions.ebook_exceptions.EBookNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class EBookService {
 
     private boolean bookExists(EBook book) {
         boolean bookExisting = eBookRepository
-                .findByTitleAndGenre(book.getTitle(), book.getGenre())
+                .findByTitleIgnoreCaseAndGenreAndGenreIgnoreCase(book.getTitle(), book.getGenre())
                 .isPresent();
 
         if (bookExisting) {
@@ -30,7 +31,7 @@ public class EBookService {
     }
 
     public Long findBookId(String title, String genre) {
-        Optional<EBook> book = eBookRepository.findByTitleAndGenre(title, genre);
+        Optional<EBook> book = eBookRepository.findByTitleIgnoreCaseAndGenreAndGenreIgnoreCase(title, genre);
 
         if (book.isEmpty()) {
             throw new EBookNotFoundException("Book does not exists");
@@ -41,7 +42,7 @@ public class EBookService {
 
     public void addNewBook(EBook book) {
         if (bookExists(book)) {
-            throw new RuntimeException("Book exists");
+            throw new EBookExistsAlreadyException("Book exists");
         }
 
         eBookRepository.save(book);
@@ -75,6 +76,6 @@ public class EBookService {
     }
 
     public Optional<EBook> findEBookByTitleAndGenre(String title, String genre) {
-        return eBookRepository.findByTitleAndGenre(title, genre);
+        return eBookRepository.findByTitleIgnoreCaseAndGenreAndGenreIgnoreCase(title, genre);
     }
 }
