@@ -63,7 +63,7 @@ public class AuthorAdminService {
         if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
             return null;
         }
-        
+
         authorService.deleteAuthor(authorId);
 
         return "Author deleted";
