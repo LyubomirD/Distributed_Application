@@ -27,12 +27,12 @@ public class BorrowEBooksClientController {
     }
 
     @PostMapping("/borrow-ebook")
-    public Optional<UserDto> borrowBooks(@RequestBody EBookDto request) {
+    public String borrowBooks(@RequestBody EBookDto request) {
         return eBookClientServer.addEBookToUser(request);
     }
 
     @PutMapping("/remove-ebook")
-    public Optional<UserDto> removeBorrowedBook(@RequestBody EBookDto request) {
+    public String removeBorrowedBook(@RequestBody EBookDto request) {
         return eBookClientServer.removeEBookFromUser(request);
     }
 

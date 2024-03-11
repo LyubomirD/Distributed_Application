@@ -35,21 +35,22 @@ public class EBookClientServer {
         for (int i = 0; i < eBookList.size(); i++) {
             EBook eBook = eBookList.get(i);
 
-            Author author = eBook.getAuthor();
+            String firstName = eBook.getAuthor().getFirstName();
+            String lastName = eBook.getAuthor().getFirstName();
 
-            eBookDtoList.get(i).setAuthorFirstName(author.getFirstName());
-            eBookDtoList.get(i).setAuthorLastName(author.getLastName());
+            eBookDtoList.get(i).setAuthorFirstName(firstName);
+            eBookDtoList.get(i).setAuthorLastName(lastName);
         }
 
         return eBookDtoList;
     }
 
 
-    public Optional<UserDto> addEBookToUser(EBookDto request) {
+    public String addEBookToUser(EBookDto request) {
         return modifyBookAction(request, true);
     }
 
-    public Optional<UserDto> removeEBookFromUser(EBookDto request) {
+    public String removeEBookFromUser(EBookDto request) {
         return modifyBookAction(request, false);
     }
 
@@ -68,7 +69,7 @@ public class EBookClientServer {
         return eBookRequestMapper.eBookListToEBookDtoList(userBooks);
     }
 
-    private Optional<UserDto> modifyBookAction(EBookDto request, boolean addBook) {
+    private String modifyBookAction(EBookDto request, boolean addBook) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
 
@@ -90,13 +91,16 @@ public class EBookClientServer {
 
                 userService.save(user);
 
-                UserDto userDto = userModelRequestMapper.userModelToUserDto(user);
-
-                return Optional.of(userDto);
+                if (addBook) {
+                    return "Book borrowed successfully";
+                } else {
+                    return "Book removed successfully";
+                }
+                
             }
         }
 
-        return Optional.empty();
+        return "Email is null";
     }
 
 }
