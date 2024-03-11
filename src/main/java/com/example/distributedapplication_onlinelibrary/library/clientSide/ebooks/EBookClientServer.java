@@ -96,7 +96,7 @@ public class EBookClientServer {
                 } else {
                     return "Book removed successfully";
                 }
-                
+
             }
         }
 

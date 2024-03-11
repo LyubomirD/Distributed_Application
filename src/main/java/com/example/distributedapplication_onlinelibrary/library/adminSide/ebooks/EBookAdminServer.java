@@ -10,9 +10,7 @@ import com.example.distributedapplication_onlinelibrary.models.books.EBookServic
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.math.BigDecimal;
 
 
 @Service
@@ -33,14 +31,15 @@ public class EBookAdminServer {
     }
 
     public String includeNewEBookToLibrary(EBookDto request) {
-        if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
+        if (!requestChecksEBooksDto(request)) {
             return null;
         }
+
+
         EBook ebook = eBookRequestMapper.eBookDtoToEBook(request);
+        Long authorId = authorService.findAuthorId(request.getAuthorFirstName(), request.getAuthorLastName());
 
-        Long author_id = authorService.findAuthorId(request.getAuthorFirstName(), request.getAuthorLastName());
-        Author author = authorService.findAuthorById(author_id);
-
+        Author author = authorService.findAuthorById(authorId);
         ebook.setAuthor(author);
 
         eBookService.addNewBook(ebook);
@@ -49,7 +48,7 @@ public class EBookAdminServer {
     }
 
     public String changeExistingEBookInform(Long ebookId, EBookDto request) {
-        if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
+        if (!requestChecksEBooksDto(request)) {
             return null;
         }
 
@@ -74,4 +73,41 @@ public class EBookAdminServer {
 
         return "EBook deleted";
     }
+
+    private boolean requestChecksEBooksDto(EBookDto request) {
+        if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
+            return false;
+        }
+
+        if (request == null) {
+            return false;
+        }
+
+        if (request.getAuthorFirstName().isEmpty() || request.getAuthorLastName().isEmpty()) {
+            return false;
+        }
+
+        if (request.getTitle().isEmpty() || request.getGenre().isEmpty()) {
+            return false;
+        }
+
+        if (request.getRating() < 0 || request.getRating() > 10) {
+            return false;
+        }
+
+        if (request.getPages() <= 0) {
+            return false;
+        }
+
+        if (request.getPrice().compareTo(BigDecimal.ZERO) <= 0) {
+            return false;
+        }
+
+        if (request.getWhenBookAdded() == null) {
+            return false;
+        }
+
+        return true;
+    }
+
 }

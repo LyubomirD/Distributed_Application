@@ -6,6 +6,7 @@ import com.example.distributedapplication_onlinelibrary.mapper.mappers.AuthorReq
 import com.example.distributedapplication_onlinelibrary.models.authors.Author;
 import com.example.distributedapplication_onlinelibrary.models.authors.AuthorService;
 import com.example.distributedapplication_onlinelibrary.models.books.EBook;
+import com.example.distributedapplication_onlinelibrary.models.books.EBookService;
 import com.example.distributedapplication_onlinelibrary.models.users.UserModel;
 import com.example.distributedapplication_onlinelibrary.models.users.UserRole;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,7 @@ import java.util.List;
 public class AuthorAdminService {
 
     private final AuthorService authorService;
+    private final EBookService eBookService;
     private final AuthorRequestMapper authorRequestMapper;
     private final CheckIsUserRoleAdminAndExistingWithEnabled permission;
 
@@ -36,7 +38,7 @@ public class AuthorAdminService {
     }
 
     public String includeNewAuthorToLibrary(AuthorDto request) {
-        if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
+        if (!requestCheckAuthorDto(request)) {
             return null;
         }
 
@@ -47,7 +49,7 @@ public class AuthorAdminService {
     }
 
     public String changeExistingAuthorInform(Long authorId, AuthorDto request) {
-        if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
+        if (!requestCheckAuthorDto(request)) {
             return null;
         }
 
@@ -61,9 +63,38 @@ public class AuthorAdminService {
         if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
             return null;
         }
-
+        
         authorService.deleteAuthor(authorId);
 
         return "Author deleted";
     }
+
+    private boolean requestCheckAuthorDto(AuthorDto request) {
+        if (!permission.isUserRoleAdminElseThrowInvalidAccessRole()) {
+            return false;
+        }
+
+        if (request == null) {
+            return false;
+        }
+
+        if (request.getFirstName().isEmpty() || request.getLastName().isEmpty()) {
+            return false;
+        }
+
+        if (request.getAuthorDateOfBirth() == null) {
+            return false;
+        }
+
+        if (request.getIsDeath() && request.getAuthorDateOfDeath() == null) {
+            return false;
+        }
+
+        if (request.getAverageRating() < 0 || request.getAverageRating() > 10) {
+            return false;
+        }
+
+        return true;
+    }
+
 }
