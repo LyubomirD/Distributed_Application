@@ -4,9 +4,11 @@ import com.example.distributedapplication_onlinelibrary.models.users.UserService
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,6 +21,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    private static final String[] SWAGGER_ENDPOINTS = {"/swagger-ui.html", "/webjars/**", "/swagger-ui/**", "/v3/api-docs"};
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic()
@@ -34,8 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("api/v1/library-admin/ebook/**").permitAll()
                 .antMatchers("api/v1/library-client/ebook/**").permitAll()
                 .antMatchers("api/v1/library-client/author/**").permitAll()
-                .antMatchers("/v2/api-docs/**").permitAll()
-                .antMatchers("/swagger-ui/**").permitAll()
+                .antMatchers(SWAGGER_ENDPOINTS).permitAll()
                 .anyRequest().authenticated();
     }
 
