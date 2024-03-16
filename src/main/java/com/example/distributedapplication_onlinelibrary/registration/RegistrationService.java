@@ -25,8 +25,6 @@ public class RegistrationService {
     private final PasswordValidator passwordValidator;
     private final ConfirmationTokenService confirmationTokenService;
     private final UserModelRequestMapper userModelRequestMapper;
-    private static final UserRole ADMIN = UserRole.ADMIN;
-    private static final UserRole CLIENT = UserRole.CLIENT;
 
     private void validateEmailAndPassword(UserDto request) {
         boolean isValidEmail = emailValidator.test(request.getEmail());

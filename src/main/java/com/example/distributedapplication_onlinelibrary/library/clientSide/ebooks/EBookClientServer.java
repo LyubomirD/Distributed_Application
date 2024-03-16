@@ -24,7 +24,6 @@ import java.util.Optional;
 public class EBookClientServer {
     private final EBookService eBookService;
     private final UserService userService;
-    private final UserModelRequestMapper userModelRequestMapper;
     private final EBookRequestMapper eBookRequestMapper;
 
 
@@ -36,7 +35,7 @@ public class EBookClientServer {
             EBook eBook = eBookList.get(i);
 
             String firstName = eBook.getAuthor().getFirstName();
-            String lastName = eBook.getAuthor().getFirstName();
+            String lastName = eBook.getAuthor().getLastName();
 
             eBookDtoList.get(i).setAuthorFirstName(firstName);
             eBookDtoList.get(i).setAuthorLastName(lastName);

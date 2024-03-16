@@ -25,7 +25,6 @@ import java.util.List;
 public class AuthorAdminService {
 
     private final AuthorService authorService;
-    private final EBookService eBookService;
     private final AuthorRequestMapper authorRequestMapper;
     private final CheckIsUserRoleAdminAndExistingWithEnabled permission;
 
